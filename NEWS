@@ -1,0 +1,108 @@
+version 1.1.0
+- Tests are now run with 'pdf(file=tempfile())' as graphics device. This avoids
+  writing 'Rplots.pdf' under the library directory when R CMD check is run.
+- Side-effects tracking now includes file operations in the test directory or
+  subdirectories thereof.
+- build_install_test now accepts arguments 'side_effects', 'remove_side_effects'  
+- expect_* functions gain argument 'info': a user-defined message that is
+  printed in long output format.
+- 'run_test_dir' now selects files with "^test.*\\.[rR]$", not "^test.*\\.[rR]" 
+  (thanks to Dirk Eddelbuettel).
+- Fixed 'diff' message for scalar comparisons in expect_equivalent,
+  expect_equal, expect_identical: 'target' and 'current' were switched in
+  message (thanks to GH user Billy34).
+- 'setup_tinytest' now keeps formatting for DESCRIPTION files (thanks to
+  Bart-Jan van Rossum).
+- Fixed crash of 'build_install_test' when pkg was developed under directory
+  with spaces (thanks to Bart-Jan van Rossum).
+- Fixed issue where R CMD check would hang when packages use paralellization (GH #36)
+  or certain Rcpp features (GH #37). Thanks to George G Vega Yon and Dirk Eddelbuettel.
+
+
+version 1.0.0
+- New argument 'side_effects' for test runners: monitor side effects while running tests.
+- New function 'report_side_effects': toggle monitoring side-effects within test files.
+- Run test files in parallel, for example: test_package("pkg", ncpu=2). (Thanks
+  to Dirk Eddelbuettel for the suggestion).
+- New function 'exit_file':  stop running a test file with an optional message.
+- Other packages can now extend the package, see '?register_tinytest_extension'
+  for the API (Thanks to Michel Lang for the suggestion)
+- New function 'using' loads tinytest extension package.
+- New function 'expect_null'
+- Improved reporting for 'expect_true', 'expect_false'
+- Improved reporting for expect_identical, expect_true, expect_equivalent
+  in the case of scalar values.
+- Added second vignette with real-life examples of tinytest tests.
+- build_install_test gains argument 'color' and 'verbose'
+- test_package returns result visibly in interactive sessions.
+- Fixed path issue for build_install_test on Windows (thanks to Jan Wijffels)
+
+
+version 0.9.6
+- Fixed error caught on CRAN
+
+version 0.9.5
+- New function 'expect_message'.
+- New functions 'all_pass', 'all_fail', 'any_pass', 'any_fail' for investigating
+  'tinytests' objects.
+- When `interactive()`, 'test_package' will not throw an error upon a failing
+  test. Still throws an error when not `interactive()`. This makes it more
+  usefull for interactive testing of installed packages.
+- 'test_package()' now returns a 'tinytests' object.
+- Better 'verbosity' while running test files (thanks to Dirk Eddelbuettel for
+  discussions and feedback)
+- Added 'test_silent'. Check for lack of errors or warnings (Thanks to Bryan
+  Hanson for the suggestion, #14)
+- Colored output is turned off automatically when the pkg is loaded
+  in a "dumb" terminal. (Thanks to Dirk Eddelbeutel for the suggestion, #12).
+- Improved documentation, including on how to skip tests on CRAN.
+- Improved vignette layout (thanks to Dirk Eddelbuettel's suggestions and initial 
+  PR #15 for geometry settings)
+- Improved behavior of 'setup_tinytest()' when a 'Suggests' field is
+  already present in DESCRIPTION
+- Fix: toleracence was not passed to 'all.equal' by 'expect_equal' and 
+  'expect_equivalent' (Thanks to An Chu #17)
+- Fix 'expect_warning' and 'expect_error' would crash when run on the CLI.
+  (Thanks to Bryan Hanson #13)
+- Fix: method dispatch in packages defining S4 methods now works.
+- Fix: 'setup' now adds 'tinytest' to 'Suggests:' rather then adding an
+  extra 'Suggests' field in DESCRIPTION.
+- Corrections in README and vignette, thanks to GH user 'salim-b' PR #18, #19
+- Internal: simplified code for 'expect_warning' and 'expect_error' 
+  (thanks to Lionel Henry for suggestions).
+
+version 0.9.4
+- New function 'setup_tinytest' that adds 'tinytest' infrastructure to a
+  package source directory.
+- Global settings set by 'options' and 'Sys.setenv' in a test file are
+  automatically removed after running a test file. This improves independence
+  between test files. This default can be overwritten, see Chapter 3 of the
+  'Using tinytest' vignette.
+- Test file sorting order can be controlled with 'lc_collate' option in test
+  runners or by setting options(tt.collate) globally.
+- More control over testing packages in 'R CMD check' with extra arguments
+  to 'test_packages'.
+- Improved call reporting in case of multiline test expressions (for example
+  when many test expressions depend on an 'if' condition).
+- Fix in 'expect_warning' and 'expect_error'. In some circumstances evaluation 
+  argument 'current' evaluated in the wrong scope, resulting in unfound variables.
+
+version 0.9.3 
+- New function 'expect_identical'
+- All functions of the form 'expect_lol' can now also be called as 'checkLol' 
+  (similar to, but not the same as 'RUnit' syntax)
+- Expect_* functions now have first argument 'current' and second argument 'target'
+- Added 'summary' method for objects of class 'tinytests'
+- Default test directory is now 'inst/tinytest'
+- Fix: 'as.data.frame' crashed on tinytests object with all tests passing.
+
+version 0.9.2
+- Processed review by CRAN team member.
+- Output coloring is now optional.
+- Fixed issue so package works correctly with r-oldrel.
+
+version 0.9.1
+- Fixed a few CRAN warnings.
+
+version 0.9.0
+- Initial release.
