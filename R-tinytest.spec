@@ -4,7 +4,7 @@
 #
 Name     : R-tinytest
 Version  : 1.2.0
-Release  : 3
+Release  : 4
 URL      : https://cran.r-project.org/src/contrib/tinytest_1.2.0.tar.gz
 Source0  : https://cran.r-project.org/src/contrib/tinytest_1.2.0.tar.gz
 Summary  : Lightweight and Feature Complete Unit Testing Framework
@@ -26,10 +26,10 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1589417644
+export SOURCE_DATE_EPOCH=1589511043
 
 %install
-export SOURCE_DATE_EPOCH=1589417644
+export SOURCE_DATE_EPOCH=1589511043
 rm -rf %{buildroot}
 export LANG=C.UTF-8
 export CFLAGS="$CFLAGS -O3 -flto -fno-semantic-interposition "
